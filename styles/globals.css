@@ -2,6 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --bg: #F8F8F8;
   --black: #000000;
@@ -11,6 +12,109 @@
   --blue: #93BEFF;
   --green: #B0FF80;
   --yellow: #FFE589;
-  --purple: #878CFF;
+  --violet: #878CFF;
   --red: #FF9B9B;
+}
+
+::-moz-selection {
+  /* Code for Firefox */
+  color: #f8f8f8;
+  background: #000000;
+}
+
+::selection {
+  color: #f8f8f8;
+  background: #000000;
+}
+
+html {
+  scrollbar-width: thin;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
+  text-rendering: optimizeSpeed !important;
+  /* Web browsers should have this by default aaaa */
+  overflow-x: hidden;
+}
+main {
+  padding: 1.5em 3em;
+}
+
+* {
+  font-family: var(--root-font);
+  box-sizing: border-box;
+}
+
+h1 {
+  font-size: 42px;
+  font-weight: 800;
+}
+
+h2 {
+  font-weight: 700;
+  font-size: 26px;
+}
+
+button,
+a,
+p {
+  font-weight: 500;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+  font-weight: 500;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  font-size: 16px;
+}
+
+#red {
+  background-color: var(--red);
+}
+#green {
+  background-color: var(--green);
+}
+#blue {
+  background-color: var(--blue);
+}
+#violet {
+  background-color: var(--violet);
+}
+#yellow {
+  background-color: var(--yellow);
+}
+
+.more {
+  position: absolute;
+  right: 12px;
+  border: 2px solid #00000021;
+  border-radius: 8px;
+  padding: 1px;
+  font-size: 18px;
+  background-color: rgba(255,255,255,0.2);
+}
+
+.copypaste {
+  position: absolute;
+  right: 0px;
+  display: flex;
+  gap: 8px;
+  background: var(--bg);
+  z-index: 6;
+  border: 2px solid;
+  margin-top: -36px;
+  border-radius: 8px;
+}
+
+.copypaste div {
+  padding: 4px;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.copypaste #delete {
+  color: var(--bg) !important;
+  background-color: #FF2525;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
 }

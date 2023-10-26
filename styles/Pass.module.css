@@ -1,0 +1,32 @@
+.grid {
+    padding: 2em 0px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(auto, 1fr);
+    grid-column-gap: 16px;
+    grid-row-gap: 24px;
+}
+
+.passbox {
+    border: 6px solid var(--black);
+    border-bottom-width: 10px;
+    border-right-width: 10px;
+    border-radius: 29px;
+    padding: 16px 18px;
+    padding-top: 12px;
+    width: 100%;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    position: relative;
+}
+
+.blur {
+    padding: 2px 8px;
+    text-overflow: ellipsis;
+    border-radius: 8px;
+    filter: blur(3px);
+    background: rgba(0,0,0,0.3);
+    user-select: none;
+}

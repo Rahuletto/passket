@@ -13,8 +13,9 @@ const sg = Space_Grotesk({
   variable: '--root-font',
 });
 
-import '../styles/globals.css';
 import '../styles/mobile.css';
+import '../styles/globals.css'
+
 import MetaTags from '../components/MetaTags';
 
 

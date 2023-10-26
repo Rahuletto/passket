@@ -11,12 +11,14 @@ Using FastAPI so here is the docs 'other person'
 https://fastapi.tiangolo.com/tutorial/first-steps/
 """
 
+
 class Password(BaseModel):
     '''The format of password i will provide to the api. This is to make things TypeSafe.'''
     provider: str  # Google
     account: str  # myemail@gmail.com
     password: str  # lolItsASecret
     color: int  # Just to fancy things up
+
 
 @app.get("/api/ping")
 def ping():
@@ -40,25 +42,65 @@ def add_key(userid: str, item: Password):
 
     color = item.color  # this ranges from 0 to 4
 
-    # 0 - Blue
-    # 1 - Green
-    # 2 - Yellow
-    # 3 - Violet
-    # 4 - Red
+    # 0 - White
+    # 1 - Blue
+    # 2 - Green
+    # 3 - Yellow
+    # 4 - Violet
+    # 5 - Red
 
-    return {"status": "success", "code": 1 }  # Return Success or Fail after save. Code is a bool. 0 for fail and 1 for success
-
+    # Return Success or Fail after save. Code is a bool. 0 for fail and 1 for success
+    return {"status": "success", "code": 1}
 
 
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
     '''Returns all key possible from the user. ALL ARE ENCRYPTED !'''
 
-    return {"keys": []}  # Return list of Password dictionary type [index.py#L14]
+    # Test data in here
+    return {"keys": [
+        {
+            "provider": "Google",
+            "account": "justdummy@gmail.com",
+            "password": "passwordIsASecretShush",
+            "color": 0
+        },
+        {
+            "provider": "Facebook",
+            "account": "rahuletto",
+            "password": "ennaDaPaakura",
+            "color": 1
+        },
+        {
+            "provider": "Twitter",
+            "account": "rahul",
+            "password": "twitterIsNowCalledX",
+            "color": 3
+        },
+        {
+            "provider": "Google",
+            "account": "fakeaccount@gmail.com",
+            "password": "password@12345",
+            "color": 4
+        },
+        {
+            "provider": "MongoDB",
+            "account": "mongo-account",
+            "password": "MongoDbisGood#!%W@%",
+            "color": 2
+        },
+        {
+            "provider": "Reddit",
+            "account": "redditman",
+            "password": "RedditIsFun",
+            "color": 5
+        }
+    ]}  # Return list of Password dictionary type [index.py#L14]
+
 
 @app.delete("/api/delete/{userid}/{provider}/{account}")
 def delete_key(userid: str, provider: str, account: str):
     '''Delete the key'''
-    
+
     # So get the exact key they ask using user id, provider name and account name from database and do. Ill provide the correct one
-    return {"status": "success", "code": 1 }
+    return {"status": "success", "code": 1}
