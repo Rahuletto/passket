@@ -26,6 +26,7 @@ export default function Home() {
   }, [])
 
   function visible(element, pass) {
+    if(element.style.filter == "none") return;
     const pin = prompt("PIN Code")
     if (pin == "1234") {
       fetch('/api/decrypt', {
@@ -43,7 +44,7 @@ export default function Home() {
         element.innerHtml = pass
         element.style.filter = "blur(3px)";
       }, 10 * 1000)
-      
+
     }
   }
 
