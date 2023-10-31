@@ -104,3 +104,11 @@ def delete_key(userid: str, provider: str, account: str):
 
     # So get the exact key they ask using user id, provider name and account name from database and do. Ill provide the correct one
     return {"status": "success", "code": 1}
+
+
+@app.patch("/api/edit/{userid}/{provider}/{account}")
+def edit_key(userid: str, provider: str, account: str):
+    '''Delete the key'''
+
+    # Edit the key ok va
+    return {"status": "success", "code": 1}

@@ -5,6 +5,7 @@ import styles from "../styles/Pass.module.css"
 
 import Drop from "../components/Drop";
 import { Password } from '../utils/types'
+import NewPass from "../components/NewPass";
 
 const color = [
   "white",
@@ -16,6 +17,8 @@ const color = [
 ]
 export default function Home() {
   const [passes, setPasses] = useState<Password[]>([]);
+
+  const [addToggle, setAddToggle] = useState(false)
 
   const userid = "12345678"
 
@@ -48,9 +51,14 @@ export default function Home() {
     }
   }
 
+  function addPass() {
+
+  }
+
   return (
     <main>
-      <h1>Passket</h1>
+      <div className="header"><h1>Passket</h1> <button id="new" onClick={() => setAddToggle(true)}>Add Pass</button></div>
+      
       <div className={styles.grid}>
         {
           passes && passes.map(pass => {
@@ -63,7 +71,14 @@ export default function Home() {
             )
           })
         }
+        
       </div>
+
+      {
+        addToggle && (
+          <NewPass />
+        )
+      }
     </main>
   );
 }
