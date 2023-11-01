@@ -5,7 +5,7 @@ import { MdOutlineContentCopy, MdOutlineDelete } from 'react-icons/md'
 import { HiPencil } from 'react-icons/hi'
 import { Password } from '../utils/types';
 
-const Drop: React.FC<{ userid: string, pass: Password }> = ({ userid, pass }) => {
+const Drop: React.FC<{ userid: string, pass: Password, update: any }> = ({ userid, pass, update }) => {
     const [visible, setVisible] = useState(false)
 
     function copy() {
@@ -45,8 +45,14 @@ const Drop: React.FC<{ userid: string, pass: Password }> = ({ userid, pass }) =>
             {visible && (
                 <div className="copypaste">
                     <div id="copy"><MdOutlineContentCopy onClick={() => copy()} /></div>
-                    <div id="edit"><HiPencil onClick={() => edit()} /></div>
-                    <div id="delete"><MdOutlineDelete style={{ color: "var(--bg)" }} onClick={() => del()} /></div>
+                    <div id="edit"><HiPencil onClick={() => {
+                        edit()
+                        update()
+                    }} /></div>
+                    <div id="delete"><MdOutlineDelete style={{ color: "var(--bg)" }} onClick={() => {
+                        del()
+                        update()
+                    }} /></div>
                 </div>
             )
             }

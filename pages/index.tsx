@@ -53,13 +53,12 @@ export default function Home() {
   }
 
   function afterSub(str: string) {
-    if (str == 'hide') setAddToggle(false)
-    else if (str == 'add') {
-      fetch(`/api/fetch/${userid}`).then(a => a.json()).then(res => {
-        setPasses(res.keys)
-        setAddToggle(false)
-      })
-    }
+    if (str && str == 'hide') setAddToggle(false)
+    fetch(`/api/fetch/${userid}`).then(a => a.json()).then(res => {
+      setPasses(res.keys)
+      setAddToggle(false)
+    })
+
   }
 
   return (
@@ -71,7 +70,7 @@ export default function Home() {
           passes && passes.map(pass => {
             return (
               <div key={passes.indexOf(pass)} id={color[pass.color]} className={styles.passbox}>
-                <h2 style={{ userSelect: "none" }}>{pass.provider}</h2> <Drop userid={userid} pass={pass} />
+                <h2 style={{ userSelect: "none" }}>{pass.provider}</h2> <Drop update={afterSub} userid={userid} pass={pass} />
                 <h3>{pass.account}</h3>
                 <p onClick={(e) => visible(e.target, pass.password)} className={styles.blur}>{pass.password}</p>
               </div>
