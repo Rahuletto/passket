@@ -9,16 +9,22 @@ const Drop: React.FC<{ userid: string, pass: Password }> = ({ userid, pass }) =>
     const [visible, setVisible] = useState(false)
 
     function copy() {
-        fetch('/api/decrypt', {
-            method: "POST",
-            body: JSON.stringify({ input: pass.password })
-        }).then(data => data.json()).then(res => {
-            navigator.clipboard.writeText(res.decrypted ? res.decrypted : pass.password);
-            setVisible(false)
-        }).catch(() => {
-            navigator.clipboard.writeText(pass.password);
-            setVisible(false)
-        })
+        const pin = prompt("PIN Code")
+        if (pin == "1234") {
+            fetch('/api/decrypt', {
+                method: "POST",
+                body: JSON.stringify({ input: pass.password })
+            }).then(data => data.json()).then(res => {
+                navigator.clipboard.writeText(res.decrypted ? res.decrypted : pass.password);
+                alert("Copied the secret")
+                setVisible(false)
+            }).catch(() => {
+                navigator.clipboard.writeText(pass.password);
+                alert("Copied the secret")
+                setVisible(false)
+            })
+        }
+
     }
 
     function edit() {
@@ -39,8 +45,8 @@ const Drop: React.FC<{ userid: string, pass: Password }> = ({ userid, pass }) =>
             {visible && (
                 <div className="copypaste">
                     <div id="copy"><MdOutlineContentCopy onClick={() => copy()} /></div>
-                    <div id="edit"><HiPencil  onClick={() => edit()} /></div>
-                    <div id="delete"><MdOutlineDelete style={{ color: "var(--bg)" }}  onClick={() => del()} /></div>
+                    <div id="edit"><HiPencil onClick={() => edit()} /></div>
+                    <div id="delete"><MdOutlineDelete style={{ color: "var(--bg)" }} onClick={() => del()} /></div>
                 </div>
             )
             }
