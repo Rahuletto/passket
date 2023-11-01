@@ -7,7 +7,7 @@ import Drop from "../components/Drop";
 import { Password } from '../utils/types'
 import NewPass from "../components/NewPass";
 
-const color = [
+export const color = [
   "white",
   "blue",
   "green",
@@ -15,6 +15,7 @@ const color = [
   "violet",
   "red"
 ]
+
 export default function Home() {
   const [passes, setPasses] = useState<Password[]>([]);
 
@@ -29,7 +30,7 @@ export default function Home() {
   }, [])
 
   function visible(element, pass) {
-    if(element.style.filter == "none") return;
+    if (element.style.filter == "none") return;
     const pin = prompt("PIN Code")
     if (pin == "1234") {
       fetch('/api/decrypt', {
@@ -51,14 +52,20 @@ export default function Home() {
     }
   }
 
-  function addPass() {
-
+  function afterSub(str: string) {
+    if (str == 'hide') setAddToggle(false)
+    else if (str == 'add') {
+      fetch(`/api/fetch/${userid}`).then(a => a.json()).then(res => {
+        setPasses(res.keys)
+        setAddToggle(false)
+      })
+    }
   }
 
   return (
     <main>
       <div className="header"><h1>Passket</h1> <button id="new" onClick={() => setAddToggle(true)}>Add Pass</button></div>
-      
+
       <div className={styles.grid}>
         {
           passes && passes.map(pass => {
@@ -71,12 +78,12 @@ export default function Home() {
             )
           })
         }
-        
+
       </div>
 
       {
         addToggle && (
-          <NewPass />
+          <NewPass vis={afterSub} userid={userid} />
         )
       }
     </main>

@@ -1,8 +1,8 @@
 """
 API using Python language
 """
-from fastapi import FastAPI
-from pydantic import BaseModel
+from fastapi import FastAPI, Request
+from pydantic import BaseModel, Json
 
 app = FastAPI()
 
@@ -28,29 +28,16 @@ def ping():
 
 
 @app.post("/api/create/{userid}")
-def add_key(userid: str, item: Password):
-    '''This adds the password or key to the database'''
+async def add_key(userid: str, item: Request): 
+    data = await item.json()
 
-    if not item or not item.provider or not item.account or not item.password:
-        return {"status": "fail", "code": 0, "item": item}
+    provider = data['provider']
+    account = data['account']
+    password = data['password']
 
-    # WIP
-    # So this is how we going to store. User ID (30 characters long) will be the primary key and all the passwords should be stored as a list (array)
-    provider = item.provider
-    account = item.account
-    password = item.password
+    color = data['color']  # this ranges from 0 to 4
 
-    color = item.color  # this ranges from 0 to 4
-
-    # 0 - White
-    # 1 - Blue
-    # 2 - Green
-    # 3 - Yellow
-    # 4 - Violet
-    # 5 - Red
-
-    # Return Success or Fail after save. Code is a bool. 0 for fail and 1 for success
-    return {"status": "success", "code": 1}
+    return {"userid": userid, "status": "success", "code": 1}
 
 
 @app.get("/api/fetch/{userid}")
@@ -94,6 +81,12 @@ def fetch_key(userid: str):
             "account": "redditman",
             "password": "RedditIsFun",
             "color": 5
+        },
+        {
+            "provider": "SRMIST",
+            "account": "srmman",
+            "password": "okok",
+            "color": 1
         }
     ]}  # Return list of Password dictionary type [index.py#L14]
 

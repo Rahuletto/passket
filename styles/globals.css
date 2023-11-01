@@ -69,6 +69,10 @@ a {
   font-size: 16px;
 }
 
+#white {
+  background-color: var(--bg);
+}
+
 #red {
   background-color: var(--red);
 }
@@ -141,8 +145,10 @@ a {
 
 form input {
   padding: 2px 8px;
-  border-radius: 8px;
+  border-radius: 12px;
+  font-size: 18px;
   border: 3px solid var(--black);
+  background-color: rgba(255, 255, 255, 0.7);
 }
 
 form {
@@ -152,10 +158,73 @@ form {
 }
 
 label {
-  font-size: 12px;
+  font-size: 14px;
   opacity: 0.6;
 }
 
-#create-new {
-  position: fixed;
+dialog {
+  width: -webkit-fill-available;
+  height: -webkit-fill-available;
+  background: none;
+  display: flex;
+  gap: 24px;
+
+  padding: 32px;
+}
+
+#centerpoint {
+  top: 0;
+  left: 0;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(12px);
+}
+
+.dialogBox {
+  position: relative;
+  border: 5px solid var(--black);
+  border-bottom-width: 10px;
+  border-right-width: 10px;
+  border-radius: 58px;
+  width: 600px;
+  height: 255px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.p-password i {
+  position: relative;
+  top: 18px;
+  right: -10px;
+}
+
+.colorPicker button {
+  height: 30px;
+  width: 48px;
+  border: 2.5px solid var(--black);
+  border-radius: 10px;
+  border-bottom-width: 4px;
+  border-right-width: 4px;
+}
+
+.colorPicker {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 8px;
+}
+
+.save {
+  position: absolute;
+  bottom: 21vh;
+  font-size: 18px;
+  padding: 4px 22px !important;
 }
