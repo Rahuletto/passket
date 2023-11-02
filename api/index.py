@@ -38,8 +38,10 @@ async def add_key(userid: str, item: Request):
     provider = data['provider']
     account = data['account']
     password = data['password']
-
     color = data['color']  # this ranges from 0 to 4
+    
+    #post={provider:data['provider'],account:data['account'],password:data['password'],color:data['color']}
+    #collection.insert_one(post)
     
 
     return {"userid": userid, "status": "success", "code": 1}
@@ -49,6 +51,8 @@ async def add_key(userid: str, item: Request):
 def fetch_key(userid: str):
     '''Returns all key possible from the user. ALL ARE ENCRYPTED !'''
 
+    #eys=collection.find(userid:str)
+    
     # Test data in here
     return {"keys": [
         {
