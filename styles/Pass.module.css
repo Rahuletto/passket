@@ -1,32 +1,40 @@
 .grid {
-    padding: 2em 0px;
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    grid-template-rows: repeat(auto, 1fr);
-    grid-column-gap: 16px;
-    grid-row-gap: 24px;
+  padding: 2em 0px;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-rows: repeat(auto, 1fr);
+  grid-column-gap: 16px;
+  grid-row-gap: 24px;
 }
 
 .passbox {
-    border: 6px solid var(--black);
-    border-bottom-width: 10px;
-    border-right-width: 10px;
-    border-radius: 29px;
-    padding: 16px 18px;
-    padding-top: 12px;
-    width: 100%;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    position: relative;
+  border: 6px solid var(--black);
+  border-bottom-width: 10px;
+  border-right-width: 10px;
+  border-radius: 29px;
+  padding: 16px 18px;
+  padding-top: 12px;
+  width: 100%;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  position: relative;
 }
 
 .blur {
-    padding: 2px 8px;
-    text-overflow: ellipsis;
-    border-radius: 8px;
-    filter: blur(3px);
-    background: rgba(0,0,0,0.3);
-    user-select: none;
+  padding: 2px 8px;
+  text-overflow: ellipsis;
+  border-radius: 8px;
+  filter: blur(3px);
+  background: rgba(0, 0, 0, 0.3);
+  user-select: none;
+}
+
+.profile {
+  height: 42px;
+  width: 42px;
+  border-radius: 100px;
+  border: 3px solid var(--black);
+  cursor: pointer;
 }

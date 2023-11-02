@@ -18,22 +18,32 @@ import '../styles/globals.css'
 
 import MetaTags from '../components/MetaTags';
 
+// Auth
+import { createPagesBrowserClient } from '@supabase/auth-helpers-nextjs';
+import { SessionContextProvider } from '@supabase/auth-helpers-react';
+import { useState } from 'react';
 
 function MyApp({ Component, pageProps: { ...pageProps } }: AppProps) {
 
+  const [supabaseClient] = useState(() => createPagesBrowserClient());
+
   return (
     <>
-      <MetaTags />
-      <style jsx global>
-        {`
+      <SessionContextProvider
+        supabaseClient={supabaseClient}
+        initialSession={pageProps.initialSession}>
+        <MetaTags />
+        <style jsx global>
+          {`
             html {
               --root-font: ${sg.style.fontFamily};=
             }
           `}
-      </style>
+        </style>
 
-      <Component className={sg.variable} {...pageProps} />
-      <Analytics />
+        <Component className={sg.variable} {...pageProps} />
+        <Analytics />
+      </SessionContextProvider>
     </>
   );
 }
