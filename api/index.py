@@ -12,7 +12,7 @@ Using FastAPI so here is the docs 'other person'
 https://fastapi.tiangolo.com/tutorial/first-steps/
 """
 
-cluster=MongoClient()
+cluster=MongoClient("mongodb+srv://passket:marbanshan01@cluster0.pqifnpk.mongodb.net/?retryWrites=true&w=majority")
 db=cluster['']
 
 
