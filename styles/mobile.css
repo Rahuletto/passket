@@ -1,0 +1,9 @@
+@media only screen and (max-width: 470px) {
+    #new {
+        display: none;
+    }
+
+    main {
+        padding: 1.2em !important;
+    }
+}

@@ -23,6 +23,12 @@
       border-bottom-width: 8px;
       border-right-width: 8px;
   }
+
+  @media only screen and (max-width: 470px) {
+    .container {
+        min-width: inherit;
+    }
+  }
   
   .container p {
       text-align: center;

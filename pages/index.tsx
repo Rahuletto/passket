@@ -9,7 +9,6 @@ import NewPass from "../components/NewPass";
 // Auth
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
-import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export const color = ["white", "blue", "green", "yellow", "violet", "red"];
@@ -87,7 +86,7 @@ export default function Home() {
         <div>
           {session && (
             <img
-              title="Account Settings"
+              title="Log out"
               onClick={() => {
                 supabaseClient.auth.signOut().then((a) => {
                   router.push("/auth/signin");
