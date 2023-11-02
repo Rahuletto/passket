@@ -1,6 +1,7 @@
 """
 API using Python language
 """
+from pymongo import MongoClient
 from fastapi import FastAPI, Request
 from pydantic import BaseModel, Json
 
@@ -10,6 +11,9 @@ app = FastAPI()
 Using FastAPI so here is the docs 'other person'
 https://fastapi.tiangolo.com/tutorial/first-steps/
 """
+
+cluster=MongoClient()
+db=cluster['']
 
 
 class Password(BaseModel):
@@ -36,6 +40,7 @@ async def add_key(userid: str, item: Request):
     password = data['password']
 
     color = data['color']  # this ranges from 0 to 4
+    
 
     return {"userid": userid, "status": "success", "code": 1}
 
