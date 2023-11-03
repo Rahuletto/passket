@@ -50,8 +50,9 @@ async def add_key(userid: str, item: Request):
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
     '''Returns all key possible from the user. ALL ARE ENCRYPTED !'''
-
-    #eys=collection.find(userid:str)
+    collection=db[userid]
+    for results in collection.find({},{"_id":0}):
+        print(results)
     
     # Test data in here
     return {"keys": [
@@ -103,7 +104,7 @@ def fetch_key(userid: str):
 @app.delete("/api/delete/{userid}/{provider}/{account}")
 def delete_key(userid: str, provider: str, account: str):
     '''Delete the key'''
-
+    collection.delete_one({'userid':str})
     # So get the exact key they ask using user id, provider name and account name from database and do. Ill provide the correct one
     return {"status": "success", "code": 1}
 
@@ -111,6 +112,6 @@ def delete_key(userid: str, provider: str, account: str):
 @app.patch("/api/edit/{userid}/{provider}/{account}")
 def edit_key(userid: str, provider: str, account: str):
     '''Delete the key'''
-
+    
     # Edit the key ok va
     return {"status": "success", "code": 1}
