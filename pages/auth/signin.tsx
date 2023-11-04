@@ -5,6 +5,7 @@ import { FaGoogle } from "react-icons/fa";
 
 // Auth
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 export default function SignIn() {
   const supabaseClient = useSupabaseClient();
@@ -38,3 +39,24 @@ export default function SignIn() {
     </main>
   );
 }
+
+
+export const getServerSideProps = async (ctx) => {
+  const supabase = createPagesServerClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (session)
+    return {
+      redirect: {
+        destination: "/",
+        permanent: false,
+      },
+    };
+  else
+    return {
+      props: {},
+    };
+};

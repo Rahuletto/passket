@@ -191,23 +191,3 @@ export default function Home() {
     </main>
   );
 }
-
-export const getServerSideProps = async (ctx) => {
-  const supabase = createPagesServerClient(ctx);
-  // Check if we have a session
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-
-  if (!session)
-    return {
-      redirect: {
-        destination: "/auth/signin",
-        permanent: false,
-      },
-    };
-  else
-    return {
-      props: {},
-    };
-};
