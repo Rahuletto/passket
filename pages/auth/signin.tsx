@@ -17,7 +17,7 @@ export default function SignIn() {
       <div key="google" className={styles.container}>
         <h2>Sign In</h2>
         <p>
-          Welcome to <b>Passket</b> !<br></br>Don't worry, this login is a
+          Welcome to <b>Passket</b> !<br></br>Don&apos;t worry, this login is a
           secure process.
         </p>
         <button
