@@ -85,7 +85,7 @@ export default function Home() {
       <div className="header">
         <div className="left">
           <h1 id="title">Passket</h1>{" "}
-          <button id="new" onClick={() => setAddToggle(true)}>
+          <button id="new" className="header-add" onClick={() => setAddToggle(true)}>
             Add Pass
           </button>
         </div>

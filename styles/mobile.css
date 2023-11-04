@@ -1,9 +1,29 @@
 @media only screen and (max-width: 470px) {
-    #new {
-        display: none;
-    }
+  .header-add {
+    position: fixed;
+    bottom: 26px;
+    z-index: 3;
+    right: 26px;
+    box-shadow: 0px 0px 12px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.1);
+  }
 
-    main {
-        padding: 1.2em !important;
-    }
+  main {
+    padding: 1.2em !important;
+  }
+
+  dialog {
+    flex-direction: column !important;
+  }
+
+  .dialogBox {
+    width: 95vw !important;
+    height: 335px !important;
+  }
+  
+  .save {
+    position: fixed !important;
+    bottom: 26px !important;
+    right: 26px;
+  }
 }
