@@ -37,4 +37,9 @@
   border-radius: 100px;
   border: 3px solid var(--black);
   cursor: pointer;
+  transition: 0.2s cubic-bezier(0.17, 1.01, 0.12, 1.05);
+}
+
+.profile:hover {
+  border: 6px solid rgb(255, 58, 58);
 }
