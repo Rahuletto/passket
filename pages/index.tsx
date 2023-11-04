@@ -10,7 +10,6 @@ import NewPass from "../components/NewPass";
 import { useSession } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/router";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
-import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 
 export const color = ["white", "blue", "green", "yellow", "violet", "red"];
 
@@ -29,7 +28,8 @@ export default function Home() {
 
   useEffect(() => {
     setUserid(session ? session?.user?.id : null);
-    if (!session?.user?.id) router.push("/auth/signin");
+
+    if (!session) router.push("/auth/signin");
 
     fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
