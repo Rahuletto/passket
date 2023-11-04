@@ -11,10 +11,12 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
+  if(!session) return NextResponse.redirect(new URL("/auth/signin", req.url));
+
   const { data } = await supabase
     .from("Users")
     .select()
-    .eq("userid", session.user.id)
+    .eq("userid", session?.user?.id)
     .limit(1)
     .single();
 
