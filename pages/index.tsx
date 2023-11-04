@@ -29,7 +29,9 @@ export default function Home() {
   useEffect(() => {
     setUserid(session ? session?.user?.id : null);
 
-    if (!session) router.push("/auth/signin");
+    setTimeout(() => {
+      if (!session) router.push("/auth/signin");
+    }, 2000);
 
     fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
