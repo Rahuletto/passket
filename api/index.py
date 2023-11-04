@@ -106,28 +106,3 @@ def delete_key(userid: str, uid: str):
 @app.patch("/api/edit/{userid}/{uid}")
 def edit_key(userid: str, uid: str):
     return {"status": "success", "code": 1}
-
-@app.get("/api/getpin/{userid}")
-async def validate_pin(userid: str):
-    pin = "1234"
-    return {"pin": pin}
-
-@app.patch("/api/editpin/{userid}")
-async def edit_pin(userid: str, item: Request):
-    data = await item.json()
-
-    pin = data.pin
-    # Encrypting would be an overkill so i passed it normally.
-
-    # Save it and return success code
-    return {"status": "success", "code": 1}
-
-@app.post("/api/new/{userid}")
-async def new_user(userid: str, item: Request):
-    data = await item.json()
-
-    pin = data.pin
-    # Save like this { userid: "", pin: "", keys: [ {...} ] }
-
-    # Save it and return success code
-    return {"status": "success", "code": 1}

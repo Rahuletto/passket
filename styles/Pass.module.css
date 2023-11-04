@@ -42,7 +42,6 @@
   box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.3);
 }
 
-
 .profile {
   height: 42px;
   width: 42px;
@@ -54,4 +53,40 @@
 
 .profile:hover {
   border: 6px solid rgb(255, 58, 58);
+}
+
+.options {
+  position: absolute;
+  margin-top: 10px;
+  background: var(--bg);
+  border-radius: 16px;
+  border: 3px solid var(--black);
+  z-index: 2;
+  right: 45px;
+  transform: translateY(-55px);
+  animation: 0.15s popdown forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popdown {
+  0% {
+    transform: scale(0.4) translateY(-55px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
+}
+
+.options p {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.options p:last-child {
+  background: #ff2525;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-top: 2px solid var(--black);
 }
