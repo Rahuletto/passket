@@ -20,9 +20,13 @@
   flex-direction: column;
   gap: 4px;
   position: relative;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .blur {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   padding: 2px 8px;
   text-overflow: ellipsis;
   border-radius: 8px;

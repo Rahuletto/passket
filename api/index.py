@@ -49,49 +49,49 @@ def fetch_key(userid: str):
             "uid": "Ai32Sdg",
             "provider": "Google",
             "account": "justdummy@gmail.com",
-            "password": "passwordIsASecretShush",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 0
         },
         {
             "uid": "3AksgG3",
             "provider": "Facebook",
             "account": "rahuletto",
-            "password": "ennaDaPaakura",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 1
         },
         {
             "uid": "HsgaH4d",
             "provider": "Twitter",
             "account": "rahul",
-            "password": "twitterIsNowCalledX",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 3
         },
         {
             "uid": "MksyhWS",
             "provider": "Google",
             "account": "fakeaccount@gmail.com",
-            "password": "password@12345",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 4
         },
         {
             "uid": "QgASgWg",
             "provider": "MongoDB",
             "account": "mongo-account",
-            "password": "MongoDbisGood#!%W@%",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 2
         },
         {
             "uid": "GHdshes",
             "provider": "Reddit",
             "account": "redditman",
-            "password": "RedditIsFun",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 5
         },
         {
             "uid": "WgshWa",
             "provider": "SRMIST",
             "account": "srmman",
-            "password": "okok",
+            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
             "color": 1
         }
     ]}

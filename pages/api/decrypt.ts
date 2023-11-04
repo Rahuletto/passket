@@ -15,7 +15,7 @@ export default function handler(
     res: NextApiResponse<DecryptData | ErrorData>
 ) {
     if(req.method == "POST") {
-    const input = req.body?.input;
+    const input = JSON.parse(req.body)?.input;
     if(!input) return res.status(400).json({ error: "No input found" })
     const dec = Decrypt(input)
     res.status(200).json({ input: input, decrypted: dec })
