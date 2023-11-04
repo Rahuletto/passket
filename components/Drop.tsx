@@ -4,6 +4,7 @@ import { MdOutlineContentCopy, MdOutlineDelete } from "react-icons/md";
 import { HiPencil } from "react-icons/hi";
 import { Password } from "../utils/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
+import clippy from 'copy-to-clipboard';
 
 const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
   userid,
@@ -29,14 +30,13 @@ const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
       })
         .then((data) => data.json())
         .then((res) => {
-          navigator.clipboard.writeText(
-            res.decrypted ? res.decrypted : pass.password
-          );
+            clippy(res.decrypted ? res.decrypted : pass.password)
+          
           alert("Copied the secret");
           setVisible(false);
         })
         .catch(() => {
-          navigator.clipboard.writeText(pass.password);
+            clippy(pass.password)
           alert("Copied the secret");
           setVisible(false);
         });
