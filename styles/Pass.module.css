@@ -26,10 +26,18 @@
   padding: 2px 8px;
   text-overflow: ellipsis;
   border-radius: 8px;
-  filter: blur(3px);
+  filter: blur(4px);
   background: rgba(0, 0, 0, 0.3);
   user-select: none;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
 }
+
+.blur:hover {
+  filter: blur(6px);
+  box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.3);
+}
+
 
 .profile {
   height: 42px;

@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-cluster=MongoClient(os.environ["MONGO"])
-db=cluster['']
+# cluster=MongoClient(os.environ["MONGO"])
+# db=cluster['']
 
 class Password(BaseModel):
     uid: int
@@ -40,9 +40,9 @@ async def add_key(userid: str, item: Request):
 
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
-    collection=db[userid]
-    for results in collection.find({},{"_id":0}):
-        print(results)
+    # collection=db[userid]
+    # for results in collection.find({},{"_id":0}):
+    #     print(results)
 
     return {"keys": [
         {
@@ -118,12 +118,22 @@ async def validate_pin(userid: str, item: Request):
     if pin: return {"status": "success", "code": 1}
     else: return {"status": "fail", "code": 0}
 
-@app.post("/api/savepin/{userid}")
-async def save_pin(userid: str, item: Request):
+@app.patch("/api/editpin/{userid}")
+async def edit_pin(userid: str, item: Request):
     data = await item.json()
 
     pin = data.pin
     # Encrypting would be an overkill so i passed it normally.
+
+    # Save it and return success code
+    return {"status": "success", "code": 1}
+
+@app.post("/api/new/{userid}")
+async def new_user(userid: str, item: Request):
+    data = await item.json()
+
+    pin = data.pin
+    # Save like this { userid: "", pin: "", keys: [ {...} ] }
 
     # Save it and return success code
     return {"status": "success", "code": 1}

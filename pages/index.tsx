@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 import styles from "../styles/Pass.module.css";
 
@@ -25,19 +25,17 @@ export default function Home() {
 
   const [userid, setUserid] = useState(null);
 
-  useMemo(() => {
+  useEffect(() => {
     setUserid(session ? session?.user?.id : null);
+    if (!session?.user?.id) router.push("/auth/signin");
 
-    fetch(`/api/fetch/${userid}`)
+    fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
       .then((res) => {
+        console.log(res.keys);
         setPasses(res.keys);
       });
-  }, []);
-
-  useEffect(() => {
-    if (!session?.user?.id) router.push("/auth/signin");
-  }, []);
+  }, [session]);
 
   function visible(element, pass) {
     if (element.style.filter == "none") return;
@@ -78,7 +76,7 @@ export default function Home() {
     <main>
       <div className="header">
         <div className="left">
-          <h1>Passket</h1>{" "}
+          <h1 id="title">Passket</h1>{" "}
           <button id="new" onClick={() => setAddToggle(true)}>
             Add Pass
           </button>
@@ -105,7 +103,7 @@ export default function Home() {
           passes.map((pass) => {
             return (
               <div
-                key={passes.indexOf(pass)}
+                key={pass.uid}
                 id={color[pass.color]}
                 className={styles.passbox}
               >
