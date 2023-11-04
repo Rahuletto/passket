@@ -11,18 +11,18 @@ export async function middleware(req: NextRequest) {
     data: { session },
   } = await supabase.auth.getSession();
 
-  if (!session && path !== "/auth/signin") {
-    return NextResponse.redirect(new URL("/auth/signin", req.url));
-  } else {
-    const { data } = await supabase
-      .from("Users")
-      .select()
-      .eq("userid", session?.user?.id)
-      .limit(1)
-      .single();
+  const { data } = await supabase
+    .from("Users")
+    .select()
+    .eq("userid", session?.user?.id)
+    .limit(1)
+    .single();
 
-    return res;
-  }
+  if (data && path == "/newpin")
+    return NextResponse.redirect(new URL("/", req.url));
+  else if (!data && path !== "/newpin")
+    return NextResponse.redirect(new URL("/newpin", req.url));
+  else return res;
 }
 
 export const config = {
