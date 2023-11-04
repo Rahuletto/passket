@@ -41,28 +41,33 @@ export default function Home() {
     if (element.style.filter == "none") return;
     const pin = prompt("PIN Code");
     const data = {
-      input: pass
-    }
-    if (pin == "1234") {
-      fetch("/api/decrypt", {
-        method: "POST",
-        body: JSON.stringify(data),
-      })
-        .then((data) => data.json())
-        .then((res) => {
-          element.innerText = res.decrypted ? res.decrypted : pass;
-          element.style.filter = "none";
-        })
-        .catch(() => {
-          element.innerText = pass;
-          element.style.filter = "none";
-        });
+      input: pass,
+    };
 
-      setTimeout(() => {
-        element.innerText = pass;
-        element.style.filter = "blur(3px)";
-      }, 10 * 1000);
-    }
+    fetch(`/api/getpin/${userid}`)
+      .then((data) => data.json())
+      .then((pinpass) => {
+        if (pin == pinpass.pin) {
+          fetch("/api/decrypt", {
+            method: "POST",
+            body: JSON.stringify(data),
+          })
+            .then((data) => data.json())
+            .then((res) => {
+              element.innerText = res.decrypted ? res.decrypted : pass;
+              element.style.filter = "none";
+            })
+            .catch(() => {
+              element.innerText = pass;
+              element.style.filter = "none";
+            });
+
+          setTimeout(() => {
+            element.innerText = pass;
+            element.style.filter = "blur(3px)";
+          }, 10 * 1000);
+        } else alert("Wrong Pin!")
+      });
   }
 
   function afterSub(str: string) {

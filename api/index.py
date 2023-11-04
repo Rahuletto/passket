@@ -107,16 +107,10 @@ def delete_key(userid: str, uid: str):
 def edit_key(userid: str, uid: str):
     return {"status": "success", "code": 1}
 
-@app.post("/api/getpin/{userid}")
-async def validate_pin(userid: str, item: Request):
-    data = await item.json()
-
-    pin = data.pin
-    # Encrypting would be an overkill so i passed it normally.
-
-    # if pin == database.pin
-    if pin: return {"status": "success", "code": 1}
-    else: return {"status": "fail", "code": 0}
+@app.get("/api/getpin/{userid}")
+async def validate_pin(userid: str):
+    pin = "1234"
+    return {"pin": pin}
 
 @app.patch("/api/editpin/{userid}")
 async def edit_pin(userid: str, item: Request):
