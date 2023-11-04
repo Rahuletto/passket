@@ -6,8 +6,8 @@ from pydantic import BaseModel
 
 app = FastAPI()
 
-# cluster=MongoClient(os.environ["MONGO"])
-# db=cluster['']
+cluster=MongoClient('mongodb+srv://passket:marbanshan01@cluster0.pqifnpk.mongodb.net/?retryWrites=true&w=majority')
+db=cluster['passket']
 
 class Password(BaseModel):
     uid: int
@@ -118,7 +118,9 @@ async def edit_pin(userid: str, item: Request):
 
     pin = data.pin
     # Encrypting would be an overkill so i passed it normally.
-
+    collection=db[userid]
+    collection.update({"userid":userid},{'$set':{'pin':pin}})
+    
     # Save it and return success code
     return {"status": "success", "code": 1}
 
@@ -128,6 +130,10 @@ async def new_user(userid: str, item: Request):
 
     pin = data.pin
     # Save like this { userid: "", pin: "", keys: [ {...} ] }
+    collection=db.create_collection(userid)
+    collection=db[userid]
 
+    collection.insert_one({"userid":userid,"pin":pin})
+    
     # Save it and return success code
     return {"status": "success", "code": 1}
