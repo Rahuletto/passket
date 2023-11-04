@@ -1,12 +1,9 @@
-import dynamic from "next/dynamic";
-
 import styles from "../../styles/Signin.module.css";
 
 // Icons
 import { FaGoogle } from "react-icons/fa";
 
 // Auth
-import { createPagesServerClient } from "@supabase/auth-helpers-nextjs";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 
 export default function SignIn() {
