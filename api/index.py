@@ -121,10 +121,11 @@ def delete_key(userid: str, uid: str):
     collection=db[userid]
     collection.update_one({},{'$pull':{'keys':{'uid':uid}}})
 
-    # collection.delete_one({'userid':userid, 'uid': uid})
     return {"status": "success", "code": 1}
 
 
 @app.patch("/api/edit/{userid}/{uid}")
 def edit_key(userid: str, uid: str):
+    collection=db[userid]
+    collection.update_one({'keys.uid':uid},{'$set':{'keys.$.password':password}})
     return {"status": "success", "code": 1}
