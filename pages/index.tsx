@@ -71,7 +71,7 @@ export default function Home() {
     if (!Number(pin) || pin.length !== 4 || !pin) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
-    console.log(PBKDF2(pin) == pinpass[0].pin)
+    console.log(PBKDF2(pin) == pinpass[0].pin);
     if (PBKDF2(pin) == pinpass[0].pin) {
       fetch('/api/decrypt', {
         method: 'POST',
@@ -177,12 +177,14 @@ export default function Home() {
       <div className="header">
         <div className="left">
           <h1 id="title">Passket</h1>{' '}
-          <button
-            id="new"
-            className="header-add"
-            onClick={() => setAddToggle(true)}>
-            Add Pass
-          </button>
+          {!user || !user.pin || user.pin == null ? null : (
+            <button
+              id="new"
+              className="header-add"
+              onClick={() => setAddToggle(true)}>
+              Add Pass
+            </button>
+          )}
         </div>
         <div>
           {session && (
