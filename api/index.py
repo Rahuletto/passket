@@ -1,9 +1,10 @@
 """
 API using Python language
 """
+
 from pymongo import MongoClient
 from fastapi import FastAPI, Request
-from pydantic import BaseModel, Json
+from pydantic import BaseModel
 
 app = FastAPI()
 
@@ -12,9 +13,8 @@ Using FastAPI so here is the docs 'other person'
 https://fastapi.tiangolo.com/tutorial/first-steps/
 """
 
-cluster=MongoClient("mongodb+srv://passket:marbanshan01@cluster0.pqifnpk.mongodb.net/?retryWrites=true&w=majority")
-db=cluster['']
-
+"""cluster=MongoClient("mongodb+srv://passket:marbanshan01@cluster0.pqifnpk.mongodb.net/?retryWrites=true&w=majority")
+db=cluster['']"""
 
 class Password(BaseModel):
     '''The format of password i will provide to the api. This is to make things TypeSafe.'''

@@ -25,18 +25,16 @@ export default function Home() {
 
   const [userid, setUserid] = useState(null);
 
-  useMemo(() => {
-    setUserid(session ? session?.user?.id : null);
+  useEffect(() => {
+    setUserid(session ? session?.user?.id : '12345678');
+
+    if (!session?.user?.id) router.push("/auth/signin");
 
     fetch(`/api/fetch/${userid}`)
       .then((a) => a.json())
       .then((res) => {
         setPasses(res.keys);
       });
-  }, []);
-
-  useEffect(() => {
-    if (!session?.user?.id) router.push("/auth/signin");
   }, []);
 
   function visible(element, pass) {
