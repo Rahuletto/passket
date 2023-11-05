@@ -1,10 +1,10 @@
 import { useState } from "react";
 import { FiMoreVertical } from "react-icons/fi";
 import { MdOutlineContentCopy, MdOutlineDelete } from "react-icons/md";
-import { HiPencil } from "react-icons/hi";
 import { Password } from "../utils/types";
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import clippy from 'copy-to-clipboard';
+import { PBKDF2 } from "../utils/pbkdf2";
 
 const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
   userid,
@@ -23,7 +23,7 @@ const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
       .limit(1)
       .single();
 
-    if (pin == pinpass.pin) {
+    if (PBKDF2(pin) == pinpass.pin) {
       fetch("/api/decrypt", {
         method: "POST",
         body: JSON.stringify({ input: pass.password }),

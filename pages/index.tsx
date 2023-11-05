@@ -50,7 +50,7 @@ export default function Home() {
     fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
       .then((res) => {
-        console.log(res)
+        console.log(res);
         setPasses(res?.keys);
       });
   }, [session]);
@@ -71,7 +71,7 @@ export default function Home() {
     if (!Number(pin) || pin.length !== 4 || !pin) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
-
+    console.log(PBKDF2(pin) == pinpass[0].pin)
     if (PBKDF2(pin) == pinpass[0].pin) {
       fetch('/api/decrypt', {
         method: 'POST',
@@ -96,12 +96,14 @@ export default function Home() {
 
   function afterSub(str: string) {
     if (str && str == 'hide') setAddToggle(false);
-    fetch(`/api/fetch/${userid}`)
-      .then((a) => a.json())
-      .then((res) => {
-        setPasses(res.keys);
-        setAddToggle(false);
-      });
+    setTimeout(() => {
+      fetch(`/api/fetch/${userid}`)
+        .then((a) => a.json())
+        .then((res) => {
+          setPasses(res.keys);
+          setAddToggle(false);
+        });
+    }, 1000);
   }
 
   async function setNewPass() {
@@ -169,7 +171,6 @@ export default function Home() {
       }
     } else alert('Wrong Old PIN !');
   }
-
 
   return (
     <main>
