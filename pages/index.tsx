@@ -47,11 +47,11 @@ export default function Home() {
       }
     })();
 
-    console.log(passes, passes.length, passes[0]);
     fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
       .then((res) => {
-        setPasses(res.keys);
+        console.log(res)
+        setPasses(res?.keys);
       });
   }, [session]);
 
@@ -170,10 +170,6 @@ export default function Home() {
     } else alert('Wrong Old PIN !');
   }
 
-  console.log(
-    (user && !passes[0]) || passes.length == 0,
-    passes[0] != null && passes[0]?.uid
-  );
 
   return (
     <main>

@@ -25,6 +25,7 @@ def ping():
 @app.post("/api/create/{userid}")
 async def add_key(userid: str, item: Request): 
     data = await item.json()
+    print(data)
 
     uid = data['uid']
     provider = data['provider']
@@ -48,8 +49,6 @@ async def add_key(userid: str, item: Request):
             post={'userid':userid,'keys':[{'uid':uid,'provider':provider,'account':account,'password':password,'color':color}]}
             collection.insert_one(post)
 
-
-    
     #post={provider:data['provider'],account:data['account'],password:data['password'],color:data['color']}
     #collection.insert_one(post)
     
@@ -59,8 +58,12 @@ async def add_key(userid: str, item: Request):
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
     collection=db[userid]
-    for results in collection.find({},{"_id":0,'keys':1}):
-        print(results['keys'])
+    dt = {"keys": []}
+    
+    for data in collection.find({"userid": userid}):
+        dt = { "userid": data['userid'], "keys": data['keys']}
+        
+    return {"keys": dt['keys']}
 
     # return {"keys": [
     #     {
@@ -113,7 +116,6 @@ def fetch_key(userid: str):
     #         "color": 1
     #     }
     # ]}
-    return {"keys": []}
 
 
 @app.delete("/api/delete/{userid}/{uid}")
@@ -124,8 +126,9 @@ def delete_key(userid: str, uid: str):
     return {"status": "success", "code": 1}
 
 
-@app.patch("/api/edit/{userid}/{uid}")
-def edit_key(userid: str, uid: str):
-    collection=db[userid]
-    collection.update_one({'keys.uid':uid},{'$set':{'keys.$.password':password}})
-    return {"status": "success", "code": 1}
+# @app.patch("/api/edit/{userid}/{uid}")
+# async def edit_key(userid: str, uid: str, item: Request):
+#     password = await item.json()
+#     collection=db[userid]
+#     collection.update_one({'keys.uid':uid},{'$set':{'keys.$.password':password}})
+#     return {"status": "success", "code": 1}

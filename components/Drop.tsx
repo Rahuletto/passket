@@ -43,16 +43,13 @@ const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
     } else return alert("Wrong PIN!");
   }
 
-  function edit() {
-    // Edit model dialog
-  }
 
   function del() {
     const confirmation = confirm(
       "Are you sure you want to delete ? This cannot be reversed."
     );
     if (confirmation == true) {
-      fetch(`/api/delete/${userid}/${pass.uid}`)
+      fetch(`/api/delete/${userid}/${pass.uid}`, {method: "DELETE"})
         .then((a) => a.json())
         .then((res) => {
           setVisible(false);
@@ -66,14 +63,6 @@ const Drop: React.FC<{ userid: string; pass: Password; update: any }> = ({
         <div className="copypaste">
           <div id="copy">
             <MdOutlineContentCopy onClick={() => copy()} />
-          </div>
-          <div id="edit">
-            <HiPencil
-              onClick={() => {
-                edit();
-                update();
-              }}
-            />
           </div>
           <div id="delete">
             <MdOutlineDelete
