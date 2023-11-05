@@ -135,6 +135,7 @@ export default function Home() {
           setUser(userData);
 
           alert('This is your new PIN.');
+          return router.reload();
         });
     } else return alert('Seems like you have pin. Please refresh.');
   }
