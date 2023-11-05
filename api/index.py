@@ -44,57 +44,58 @@ def fetch_key(userid: str):
     # for results in collection.find({},{"_id":0}):
     #     print(results)
 
-    return {"keys": [
-        {
-            "uid": "Ai32Sdg",
-            "provider": "Google",
-            "account": "justdummy@gmail.com",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 0
-        },
-        {
-            "uid": "3AksgG3",
-            "provider": "Facebook",
-            "account": "rahuletto",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 1
-        },
-        {
-            "uid": "HsgaH4d",
-            "provider": "Twitter",
-            "account": "rahul",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 3
-        },
-        {
-            "uid": "MksyhWS",
-            "provider": "Google",
-            "account": "fakeaccount@gmail.com",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 4
-        },
-        {
-            "uid": "QgASgWg",
-            "provider": "MongoDB",
-            "account": "mongo-account",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 2
-        },
-        {
-            "uid": "GHdshes",
-            "provider": "Reddit",
-            "account": "redditman",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 5
-        },
-        {
-            "uid": "WgshWa",
-            "provider": "SRMIST",
-            "account": "srmman",
-            "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
-            "color": 1
-        }
-    ]}
+    # return {"keys": [
+    #     {
+    #         "uid": "Ai32Sdg",
+    #         "provider": "Google",
+    #         "account": "justdummy@gmail.com",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 0
+    #     },
+    #     {
+    #         "uid": "3AksgG3",
+    #         "provider": "Facebook",
+    #         "account": "rahuletto",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 1
+    #     },
+    #     {
+    #         "uid": "HsgaH4d",
+    #         "provider": "Twitter",
+    #         "account": "rahul",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 3
+    #     },
+    #     {
+    #         "uid": "MksyhWS",
+    #         "provider": "Google",
+    #         "account": "fakeaccount@gmail.com",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 4
+    #     },
+    #     {
+    #         "uid": "QgASgWg",
+    #         "provider": "MongoDB",
+    #         "account": "mongo-account",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 2
+    #     },
+    #     {
+    #         "uid": "GHdshes",
+    #         "provider": "Reddit",
+    #         "account": "redditman",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 5
+    #     },
+    #     {
+    #         "uid": "WgshWa",
+    #         "provider": "SRMIST",
+    #         "account": "srmman",
+    #         "password": "U2FsdGVkX1/K4dkTdonH0WKA6ddlpoq+XgU5kIB/S8/5JIQ5FEZg1Mu/CD5+p02a",
+    #         "color": 1
+    #     }
+    # ]}
+    return {"keys": []}
 
 
 @app.delete("/api/delete/{userid}/{uid}")
