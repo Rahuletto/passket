@@ -58,9 +58,9 @@ async def add_key(userid: str, item: Request):
 
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
-    # collection=db[userid]
-    # for results in collection.find({},{"_id":0}):
-    #     print(results)
+    collection=db[userid]
+    for results in collection.find({},{"_id":0,'keys':1}):
+        print(results['keys'])
 
     # return {"keys": [
     #     {
@@ -118,6 +118,9 @@ def fetch_key(userid: str):
 
 @app.delete("/api/delete/{userid}/{uid}")
 def delete_key(userid: str, uid: str):
+    collection=db[userid]
+    collection.update_one({},{'$pull':{'keys':{'uid':uid}}})
+
     # collection.delete_one({'userid':userid, 'uid': uid})
     return {"status": "success", "code": 1}
 
