@@ -33,22 +33,23 @@ const NewPass: React.FC<{ vis: any; userid: string }> = ({
       body: JSON.stringify({
         input: pass,
       }),
-    }).then((p: any) => {
-    console.log(p)
-      const data = {
-        uid: makeid(8),
-        provider: prov,
-        account: name,
-        password: p.encrypted,
-        color: color.findIndex((e) => e == clr),
-      };
+    })
+      .then((data) => data.json())
+      .then((res) => {
+        const data = {
+          uid: makeid(8),
+          provider: prov,
+          account: name,
+          password: res.encrypted || pass,
+          color: color.findIndex((e) => e == clr),
+        };
 
-      console.log(data);
-      fetch(`/api/create/${userid}`, {
-        method: 'POST',
-        body: JSON.stringify(data),
+        console.log(data);
+        fetch(`/api/create/${userid}`, {
+          method: 'POST',
+          body: JSON.stringify(data),
+        });
       });
-    });
   }
 
   return (
