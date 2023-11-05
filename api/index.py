@@ -31,6 +31,24 @@ async def add_key(userid: str, item: Request):
     account = data['account']
     password = data['password']
     color = data['color']  # this ranges from 0 to 4
+
+    cl=db.list_collection_names()
+    for i in cl:
+        if i==userid:
+            collection=db[userid]
+            if collection.count_documents({}) ==0:
+                post={'userid':userid,'keys':[{'uid':uid,'provider':provider,'account':account,'password':password,'color':color}]}
+                collection.insert_one(post)
+            else:
+                collection.update_one({},{"$push":{'keys':{'uid':uid,'provider':provider,'account':account,'password':password,'color':color}}})
+            break
+        else:
+            db.create_collection(userid)
+            collection=db[userid]
+            post={'userid':userid,'keys':[{'uid':uid,'provider':provider,'account':account,'password':password,'color':color}]}
+            collection.insert_one(post)
+
+
     
     #post={provider:data['provider'],account:data['account'],password:data['password'],color:data['color']}
     #collection.insert_one(post)
