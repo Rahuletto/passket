@@ -19,6 +19,7 @@
     "@vercel/analytics": "^1.1.1",
     "autoprefixer": "10.4.14",
     "concurrently": "^8.0.1",
+    "copy-to-clipboard": "^3.3.3",
     "crypto-js": "^4.1.1",
     "eslint": "8.41.0",
     "eslint-config-next": "13.4.4",

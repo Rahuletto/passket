@@ -20,15 +20,26 @@
   flex-direction: column;
   gap: 4px;
   position: relative;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .blur {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   padding: 2px 8px;
   text-overflow: ellipsis;
   border-radius: 8px;
-  filter: blur(3px);
+  filter: blur(4px);
   background: rgba(0, 0, 0, 0.3);
   user-select: none;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: pointer;
+}
+
+.blur:hover {
+  filter: blur(6px);
+  box-shadow: inset 0px 0px 12px 10px rgba(0, 0, 0, 0.3);
 }
 
 .profile {
@@ -37,4 +48,45 @@
   border-radius: 100px;
   border: 3px solid var(--black);
   cursor: pointer;
+  transition: 0.2s cubic-bezier(0.17, 1.01, 0.12, 1.05);
+}
+
+.profile:hover {
+  border: 6px solid rgb(255, 58, 58);
+}
+
+.options {
+  position: absolute;
+  margin-top: 10px;
+  background: var(--bg);
+  border-radius: 16px;
+  border: 3px solid var(--black);
+  z-index: 2;
+  right: 45px;
+  transform: translateY(-55px);
+  animation: 0.15s popdown forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popdown {
+  0% {
+    transform: scale(0.4) translateY(-55px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
+}
+
+.options p {
+  cursor: pointer;
+  padding: 10px 20px;
+  font-weight: 600;
+}
+
+.options p:last-child {
+  background: #ff2525;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
+  border-top: 2px solid var(--black);
 }

@@ -2,18 +2,19 @@
 @tailwind components;
 @tailwind utilities;
 
+@import url('https://fonts.googleapis.com/css2?family=Onest:wght@500&family=Space+Grotesk:wght@400;500;600;700&display=swap');
 
 :root {
-  --bg: #F8F8F8;
+  --bg: #f8f8f8;
   --black: #000000;
-  --gold: #FFC633;
+  --gold: #ffc633;
 
   /* Card bg */
-  --blue: #93BEFF;
-  --green: #B0FF80;
-  --yellow: #FFE589;
-  --violet: #878CFF;
-  --red: #FF9B9B;
+  --blue: #93beff;
+  --green: #b0ff80;
+  --yellow: #ffe589;
+  --violet: #878cff;
+  --red: #ff9b9b;
 }
 
 ::-moz-selection {
@@ -94,6 +95,7 @@ a {
 }
 
 .more {
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   position: absolute;
   right: 12px;
   border: 2px solid #00000021;
@@ -101,6 +103,11 @@ a {
   padding: 1px;
   font-size: 18px;
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+.more:hover {
+  transform: scale(0.9);
+  padding: 1px 3px;
 }
 
 .copypaste {
@@ -113,17 +120,37 @@ a {
   border: 2px solid;
   margin-top: -36px;
   border-radius: 8px;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  transform: translateY(20px);
+  animation: 0.1s popout forwards cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popout {
+  0% {
+    transform: scale(0.4) translateY(20px);
+    opacity: 0.7;
+  }
+  100% {
+    transform: scale(1) translateY(0px);
+    opacity: 1;
+  }
 }
 
 .copypaste div {
   padding: 4px;
   font-size: 20px;
   cursor: pointer;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.copypaste div:hover {
+  transform: scale(0.9);
+  opacity: 0.9;
 }
 
 .copypaste #delete {
   color: var(--bg) !important;
-  background-color: #FF2525;
+  background-color: #ff2525;
   border-top-right-radius: 6px;
   border-bottom-right-radius: 6px;
 }
@@ -139,14 +166,29 @@ a {
   gap: 24px;
 }
 
+#title {
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  cursor: grab;
+}
+
+#title:hover {
+  letter-spacing: -2px;
+}
+
 #new {
   background-color: var(--gold);
   padding: 4px 8px;
-  border-radius: 8px;
+  border-radius: 10px;
   border: 2px solid var(--black);
+  border-bottom-width: 4px;
   height: auto;
   margin-top: auto;
   margin-bottom: auto;
+  transition: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#new:hover {
+  border-bottom-width: 2px;
 }
 
 form input {
@@ -181,8 +223,9 @@ dialog {
 #centerpoint {
   top: 0;
   left: 0;
-  position: absolute;
+  position: fixed;
   display: flex;
+  z-index: 5;
   justify-content: center;
   align-items: center;
 
@@ -208,8 +251,23 @@ dialog {
 
 .p-password i {
   position: relative;
-  top: 18px;
-  right: -10px;
+  top: 14px;
+  right: -4px;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  border-radius: 6px;
+  height: 25px;
+  width: 25px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+
+.p-password i:hover {
+  transform: scale(0.9);
+  color: var(--black);
+  background: rgba(0, 0, 0, 0.1);
+  
 }
 
 .colorPicker button {
@@ -219,6 +277,13 @@ dialog {
   border-radius: 10px;
   border-bottom-width: 4px;
   border-right-width: 4px;
+  transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.colorPicker button:hover {
+  transform: scale(1.05);
+  border-bottom-width: 3px;
+  border-right-width: 3px;
 }
 
 .colorPicker {

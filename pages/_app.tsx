@@ -5,7 +5,6 @@ import type { AppProps } from 'next/app';
 // Fonts
 import { Space_Grotesk } from 'next/font/google';
 const sg = Space_Grotesk({
-  fallback: ['system-ui', 'arial'],
   weight: ['500', '700'],
   display: 'swap',
   style: ['normal'],
