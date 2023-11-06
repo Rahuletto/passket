@@ -7,7 +7,7 @@ from pydantic import BaseModel
 app = FastAPI()
 
 cluster=MongoClient(os.environ["MONGO"])
-db=cluster['']
+db=cluster['passket']
 
 class Password(BaseModel):
     uid: int
