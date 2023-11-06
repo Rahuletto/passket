@@ -70,7 +70,7 @@ export default function Home() {
     if (!Number(pin) || pin.length !== 4 || !pin) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
-    
+
     if (PBKDF2(pin) == pinpass[0].pin) {
       fetch('/api/decrypt', {
         method: 'POST',
@@ -89,7 +89,7 @@ export default function Home() {
       setTimeout(() => {
         element.innerText = pass;
         element.style.filter = 'blur(3px)';
-      }, 10 * 1000);
+      }, 15 * 1000);
     } else alert('Wrong Pin!');
   }
 
@@ -165,7 +165,7 @@ export default function Home() {
           .from('Users')
           .update({ userid: userid, pin: PBKDF2(newpin) })
           .eq('userid', userid)
-          .then((a) => {
+          .then(() => {
             alert('Changed your PIN.');
           });
       }
@@ -220,7 +220,7 @@ export default function Home() {
 
         {user && user.pin ? (
           <div className={styles.grid}>
-            {passes[0] != null && passes[0]?.uid ? (
+            {passes && passes[0] != null && passes[0]?.uid ? (
               passes.map((pass) => {
                 return (
                   <div
