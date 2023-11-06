@@ -43,7 +43,7 @@ export default function Home() {
           .eq('userid', session?.user?.id)
           .limit(1);
 
-        setUser(data[0]);
+        if (data) setUser(data[0]);
       }
     })();
 
@@ -70,7 +70,7 @@ export default function Home() {
     if (!Number(pin) || pin.length !== 4 || !pin) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
-    console.log(PBKDF2(pin) == pinpass[0].pin);
+    
     if (PBKDF2(pin) == pinpass[0].pin) {
       fetch('/api/decrypt', {
         method: 'POST',
@@ -102,7 +102,7 @@ export default function Home() {
           setPasses(res.keys);
           setAddToggle(false);
         });
-    }, 1000);
+    }, 100);
   }
 
   async function setNewPass() {

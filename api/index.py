@@ -34,10 +34,6 @@ async def add_key(userid: str, item: Request):
     color = data['color']  # this ranges from 0 to 4
 
     cl=db.list_collection_names()
-    print("-----------------------------------")
-    print(cl)
-    print("-----------------------------------")
-
 
     for i in cl:
         if i==userid:
@@ -54,10 +50,16 @@ async def add_key(userid: str, item: Request):
         post={'userid':userid,'keys':[{'uid':uid,'provider':provider,'account':account,'password':password,'color':color}]}
         collection.insert_one(post)
 
+    
+    dt = {"keys": []}
+    
+    for data in collection.find({"userid": userid}):
+        dt = { "userid": data['userid'], "keys": data['keys']}
+
     #post={provider:data['provider'],account:data['account'],password:data['password'],color:data['color']}
     #collection.insert_one(post)
     
-    return {"userid": userid, "status": "success", "code": 1}
+    return {"userid": userid, "data": dt, "status": "success", "code": 1}
 
 
 @app.get("/api/fetch/{userid}")

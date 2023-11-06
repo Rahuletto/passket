@@ -44,11 +44,10 @@ const NewPass: React.FC<{ vis: any; userid: string }> = ({
           color: color.findIndex((e) => e == clr),
         };
 
-        console.log(data);
         fetch(`/api/create/${userid}`, {
           method: 'POST',
           body: JSON.stringify(data),
-        });
+        }).then(a => vis('add'))
       });
   }
 
@@ -110,7 +109,6 @@ const NewPass: React.FC<{ vis: any; userid: string }> = ({
           id="new"
           onClick={() => {
             create();
-            vis('add');
           }}>
           Add
         </button>
