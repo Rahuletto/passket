@@ -34,6 +34,11 @@ async def add_key(userid: str, item: Request):
     color = data['color']  # this ranges from 0 to 4
 
     cl=db.list_collection_names()
+    print("-----------------------------------")
+    print(cl)
+    print("-----------------------------------")
+
+
     for i in cl:
         if i==userid:
             collection=db[userid]
@@ -57,6 +62,8 @@ async def add_key(userid: str, item: Request):
 
 @app.get("/api/fetch/{userid}")
 def fetch_key(userid: str):
+     
+    if(userid == "undefined"): return {"status": "fail", "code": 0}
     collection=db[userid]
     dt = {"keys": []}
     
@@ -72,11 +79,3 @@ def delete_key(userid: str, uid: str):
     collection.update_one({},{'$pull':{'keys':{'uid':uid}}})
 
     return {"status": "success", "code": 1}
-
-
-# @app.patch("/api/edit/{userid}/{uid}")
-# async def edit_key(userid: str, uid: str, item: Request):
-#     password = await item.json()
-#     collection=db[userid]
-#     collection.update_one({'keys.uid':uid},{'$set':{'keys.$.password':password}})
-#     return {"status": "success", "code": 1}

@@ -33,7 +33,7 @@ export default function Home() {
 
     setTimeout(() => {
       if (!session) router.push('/auth/signin');
-    }, 2000);
+    }, 1200);
 
     (async () => {
       if (session?.user?.id) {
@@ -50,7 +50,6 @@ export default function Home() {
     fetch(`/api/fetch/${session?.user?.id}`)
       .then((a) => a.json())
       .then((res) => {
-        console.log(res);
         setPasses(res?.keys);
       });
   }, [session]);
@@ -173,141 +172,154 @@ export default function Home() {
     } else alert('Wrong Old PIN !');
   }
 
-  return (
-    <main>
-      <div className="header">
-        <div className="left">
-          <h1 id="title">Passket</h1>{' '}
-          {!user || !user.pin || user.pin == null ? null : (
-            <button
-              id="new"
-              className="header-add"
-              onClick={() => setAddToggle(true)}>
-              Add Pass
-            </button>
-          )}
-        </div>
-        <div>
-          {session && (
-            <img
-              title="Account Options"
-              onClick={() => {
-                setAcc((a) => !a);
-              }}
-              src={session?.user?.user_metadata?.avatar_url}
-              alt="user"
-              className={styles.profile}
-            />
-          )}
-          {accToggle && (
-            <div className={styles.options}>
-              <p title="Change pin" onClick={() => changePin()}>
-                Change Pin
-              </p>
-              <p
-                title="Log out"
-                onClick={() => {
-                  supabaseClient.auth.signOut().then((a) => {
-                    router.push('/auth/signin');
-                  });
-                }}>
-                Logout
-              </p>
-            </div>
-          )}
-        </div>
-      </div>
-
-      {user && user.pin ? (
-        <div className={styles.grid}>
-          {passes[0] != null && passes[0]?.uid ? (
-            passes.map((pass) => {
-              return (
-                <div
-                  key={pass.uid}
-                  id={color[pass.color]}
-                  className={styles.passbox}>
-                  <h2 style={{ userSelect: 'none' }}>{pass.provider}</h2>{' '}
-                  <Drop update={afterSub} userid={userid} pass={pass} />
-                  <h3>{pass.account}</h3>
-                  <p
-                    onClick={(e) => visible(e.target, pass.password)}
-                    className={styles.blur}>
-                    {pass.password}
-                  </p>
-                </div>
-              );
-            })
-          ) : (
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                height: '95vh',
-                flexDirection: 'column',
-                gap: 12,
-              }}>
-              <h2>
-                You currently dont have any passwords saved. Lets make one!
-              </h2>
+  if (session)
+    return (
+      <main>
+        <div className="header">
+          <div className="left">
+            <h1 id="title">Passket</h1>{' '}
+            {!user || !user.pin || user.pin == null ? null : (
               <button
                 id="new"
-                onClick={() => setAddToggle(true)}
-                style={{
-                  margin: '0 !important',
-                  marginTop: 0,
-                  marginBottom: 0,
-                }}>
+                className="header-add"
+                onClick={() => setAddToggle(true)}>
                 Add Pass
               </button>
-            </div>
-          )}
+            )}
+          </div>
+          <div>
+            {session && (
+              <img
+                title="Account Options"
+                onClick={() => {
+                  setAcc((a) => !a);
+                }}
+                src={session?.user?.user_metadata?.avatar_url}
+                alt="user"
+                className={styles.profile}
+              />
+            )}
+            {accToggle && (
+              <div className={styles.options}>
+                <p title="Change pin" onClick={() => changePin()}>
+                  Change Pin
+                </p>
+                <p
+                  title="Log out"
+                  onClick={() => {
+                    supabaseClient.auth.signOut().then((a) => {
+                      router.push('/auth/signin');
+                    });
+                  }}>
+                  Logout
+                </p>
+              </div>
+            )}
+          </div>
         </div>
-      ) : (user && !passes[0]) || passes.length == 0 ? (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '95vh',
-            flexDirection: 'column',
-            gap: 12,
-          }}>
-          <h2>You currently dont have any passwords saved. Lets make one!</h2>
-          <button
-            id="new"
-            onClick={() => setAddToggle(true)}
-            style={{ margin: '0 !important', marginTop: 0, marginBottom: 0 }}>
-            Add Pass
-          </button>
-        </div>
-      ) : !user || !user.pin || user.pin == null ? (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '95vh',
-            flexDirection: 'column',
-            gap: 12,
-          }}>
-          <h2>Seems like you are new here. Lets create a pin for you</h2>
-          <button
-            id="new"
-            style={{
-              background: 'var(--bg)',
-              margin: '0 !important',
-              marginTop: 0,
-              marginBottom: 0,
-            }}
-            onClick={() => setNewPass()}>
-            Set PIN
-          </button>
-        </div>
-      ) : null}
 
-      {addToggle && <NewPass vis={afterSub} userid={userid} />}
+        {user && user.pin ? (
+          <div className={styles.grid}>
+            {passes[0] != null && passes[0]?.uid ? (
+              passes.map((pass) => {
+                return (
+                  <div
+                    key={pass.uid}
+                    id={color[pass.color]}
+                    className={styles.passbox}>
+                    <h2 style={{ userSelect: 'none' }}>{pass.provider}</h2>{' '}
+                    <Drop update={afterSub} userid={userid} pass={pass} />
+                    <h3>{pass.account}</h3>
+                    <p
+                      onClick={(e) => visible(e.target, pass.password)}
+                      className={styles.blur}>
+                      {pass.password}
+                    </p>
+                  </div>
+                );
+              })
+            ) : (
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  height: '90vh',
+                  flexDirection: 'column',
+                  gap: 12,
+                }}>
+                <h2>
+                  You currently dont have any passwords saved. Lets make one!
+                </h2>
+                <button
+                  id="new"
+                  onClick={() => setAddToggle(true)}
+                  style={{
+                    margin: '0 !important',
+                    marginTop: 0,
+                    marginBottom: 0,
+                  }}>
+                  Add Pass
+                </button>
+              </div>
+            )}
+          </div>
+        ) : user?.pin && ((user && !passes[0]) || passes.length == 0) ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '90vh',
+              flexDirection: 'column',
+              gap: 12,
+            }}>
+            <h2>You currently dont have any passwords saved. Lets make one!</h2>
+            <button
+              id="new"
+              onClick={() => setAddToggle(true)}
+              style={{ margin: '0 !important', marginTop: 0, marginBottom: 0 }}>
+              Add Pass
+            </button>
+          </div>
+        ) : !user || !user.pin || user.pin == null ? (
+          <div
+            style={{
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              height: '95vh',
+              flexDirection: 'column',
+              gap: 12,
+            }}>
+            <h2>Seems like you are new here. Lets create a pin for you</h2>
+            <button
+              id="new"
+              style={{
+                background: 'var(--bg)',
+                margin: '0 !important',
+                marginTop: 0,
+                marginBottom: 0,
+              }}
+              onClick={() => setNewPass()}>
+              Set PIN
+            </button>
+          </div>
+        ) : null}
+
+        {addToggle && <NewPass vis={afterSub} userid={userid} />}
+      </main>
+    );
+  else return (
+    <main style={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      height: '90vh',
+      flexDirection: 'column',
+      gap: 12,
+    }}>
+      <h2>Loading</h2>
     </main>
-  );
+  )
 }
