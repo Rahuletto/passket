@@ -9,14 +9,12 @@ app = FastAPI()
 cluster=MongoClient(os.environ["MONGO"])
 db=cluster['']
 
-
-
 class Password(BaseModel):
     uid: int
     provider: str
     account: str
     password: str
-    color: int
+    color: int #Color
 
 
 @app.get("/api/ping")
