@@ -8,6 +8,7 @@
 }
 
 .passbox {
+  max-width: 30vw;
   border: 6px solid var(--black);
   border-bottom-width: 10px;
   border-right-width: 10px;

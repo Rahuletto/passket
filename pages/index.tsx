@@ -29,11 +29,10 @@ export default function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
+    setTimeout(() => router.push('/home'), 3000);
+  }, [userid]);
+  useEffect(() => {
     setUserid(session ? session?.user?.id : null);
-
-    setTimeout(() => {
-      if (!session) router.push('/home');
-    }, 1200);
 
     (async () => {
       if (session?.user?.id) {
@@ -310,16 +309,18 @@ export default function Home() {
         {addToggle && <NewPass vis={afterSub} userid={userid} />}
       </main>
     );
-  else return (
-    <main style={{
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      height: '90vh',
-      flexDirection: 'column',
-      gap: 12,
-    }}>
-      <h2>Loading</h2>
-    </main>
-  )
+  else
+    return (
+      <main
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          height: '90vh',
+          flexDirection: 'column',
+          gap: 12,
+        }}>
+        <h2>Loading</h2>
+      </main>
+    );
 }
