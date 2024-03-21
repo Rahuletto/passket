@@ -29,7 +29,9 @@ export default function Home() {
   const [user, setUser] = useState(null);
 
   useEffect(() => {
-    setTimeout(() => router.push('/home'), 3000);
+    setTimeout(() => {
+      if (!userid) router.push('/home');
+    }, 3000);
   }, [userid]);
   useEffect(() => {
     setUserid(session ? session?.user?.id : null);
