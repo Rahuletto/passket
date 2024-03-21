@@ -144,10 +144,9 @@
 }
 
 @media only screen and (max-width: 999px) {
-    .container {
+  .container {
     padding: 0px;
-
-    }
+  }
   .login {
     padding: 24px 32px;
     width: 89vw;
@@ -155,12 +154,12 @@
 }
 
 @media only screen and (max-width: 750px) {
-    .main {
-        padding: 0px;
-    }
-    .login {
-        padding: 12px 24px;
-    }
+  .main {
+    padding: 0px;
+  }
+  .login {
+    padding: 12px 24px;
+  }
   .titles,
   .inputs {
     padding: 12px 0px !important;
