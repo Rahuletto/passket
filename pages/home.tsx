@@ -14,7 +14,7 @@ export default function Home() {
             <p>A Secure yet Transparent way to store your password</p>
           </div>
           <div className={styles.buttons}>
-            <Link className={styles.login} href="/login">
+            <Link className={styles.login} href="/auth/signin">
               Login
             </Link>
           </div>
