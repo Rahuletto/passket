@@ -32,7 +32,7 @@ export default function Home() {
     setUserid(session ? session?.user?.id : null);
 
     setTimeout(() => {
-      if (!session) router.push('/auth/signin');
+      if (!session) router.push('/home');
     }, 1200);
 
     (async () => {
@@ -208,7 +208,7 @@ export default function Home() {
                   title="Log out"
                   onClick={() => {
                     supabaseClient.auth.signOut().then((a) => {
-                      router.push('/auth/signin');
+                      router.push('/home');
                     });
                   }}>
                   Logout
