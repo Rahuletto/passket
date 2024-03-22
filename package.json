@@ -20,7 +20,7 @@
     "autoprefixer": "10.4.14",
     "concurrently": "^8.2.2",
     "copy-to-clipboard": "^3.3.3",
-    "crypto-js": "^4.2.0",
+    "crypto-js": "^4.1.1",
     "eslint": "8.41.0",
     "eslint-config-next": "^14.1.4",
     "next": "^14.1.4",
