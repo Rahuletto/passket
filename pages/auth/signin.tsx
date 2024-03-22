@@ -48,7 +48,7 @@ export default function SignIn() {
           </div>
           <p className={styles.credits}>
             Made by <a href="https://marban.is-a.dev">Marban</a> and{' '}
-            <a href="https://www.linkedin.com/in/srivishal-sivasubramanian-1a09b9240/">
+            <a href="https://www.linkedin.com/in/harshan-am">
               Harshan
             </a>
           </p>
