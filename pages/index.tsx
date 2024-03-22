@@ -10,7 +10,7 @@ import NewPass from '../components/NewPass';
 
 // Auth and Database
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
-import { useSession } from '@supabase/auth-helpers-react';
+import { useSession, useSessionContext } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { PBKDF2 } from '../utils/pbkdf2';
@@ -19,7 +19,7 @@ export const color = ['white', 'blue', 'green', 'yellow', 'violet', 'red'];
 
 export default function Home() {
   const router = useRouter();
-  const session = useSession();
+  const { isLoading, session, error } = useSessionContext();
 
   const supabaseClient = useSupabaseClient();
 
@@ -40,10 +40,11 @@ export default function Home() {
           .from('Users')
           .select('*')
           .eq('userid', session?.user?.id)
-          .limit(1).single();
+          .limit(1)
+          .single();
 
         if (data) setUser(data);
-      } else router.push('/home')
+      } else if (!isLoading && !session) return router.push('/home');
     })();
 
     fetch(`/api/fetch/${session?.user?.id}`)
@@ -99,8 +100,6 @@ export default function Home() {
   }
 
   async function setNewPass() {
-   
-
     if (!user || !user?.pin) {
       const pin = prompt('Set new PIN');
 
@@ -130,7 +129,6 @@ export default function Home() {
 
   async function changePin() {
     const old = prompt('Old PIN');
-
 
     if (!Number(old) || old.length !== 4 || !old) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
@@ -323,5 +321,5 @@ export const getServerSideProps = async (ctx) => {
       },
     };
 
-  return {}
-}
+  return {};
+};
