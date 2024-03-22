@@ -7,6 +7,9 @@ import { Password } from '../utils/types';
 import NewPass from '../components/NewPass';
 
 // Auth
+
+// Auth and Database
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { useSession } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
@@ -28,11 +31,6 @@ export default function Home() {
   const [userid, setUserid] = useState(null);
   const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (!userid) router.push('/home');
-    }, 3000);
-  }, [userid]);
   useEffect(() => {
     setUserid(session ? session?.user?.id : null);
 
@@ -325,4 +323,21 @@ export default function Home() {
         <h2>Loading</h2>
       </main>
     );
+}
+
+export const getServerSideProps = async (ctx) => {
+  // Create authenticated Supabase Client
+  const supabase = createPagesServerClient(ctx);
+  // Check if we have a session
+  const {
+    data: { session },
+  } = await supabase.auth.getSession();
+
+  if (!session)
+    return {
+      redirect: {
+        destination: '/home',
+        permanent: false,
+      },
+    };
 }
