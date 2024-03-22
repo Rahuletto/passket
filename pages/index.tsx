@@ -43,7 +43,7 @@ export default function Home() {
           .limit(1).single();
 
         if (data) setUser(data);
-      }
+      } else router.push('/home')
     })();
 
     fetch(`/api/fetch/${session?.user?.id}`)
@@ -310,9 +310,7 @@ export default function Home() {
 }
 
 export const getServerSideProps = async (ctx) => {
-  // Create authenticated Supabase Client
   const supabase = createPagesServerClient(ctx);
-  // Check if we have a session
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -320,7 +318,7 @@ export const getServerSideProps = async (ctx) => {
   if (!session)
     return {
       redirect: {
-        destination: '/home',
+        destination: '/auth/signin',
         permanent: false,
       },
     };
