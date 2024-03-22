@@ -38,11 +38,11 @@ export default function Home() {
       if (session?.user?.id) {
         const { data } = await supabaseClient
           .from('Users')
-          .select()
+          .select('*')
           .eq('userid', session?.user?.id)
-          .limit(1);
+          .limit(1).single();
 
-        if (data) setUser(data[0]);
+        if (data) setUser(data);
       }
     })();
 
@@ -60,17 +60,11 @@ export default function Home() {
       input: pass,
     };
 
-    const { data: pinpass } = await supabaseClient
-      .from('Users')
-      .select('*')
-      .eq('userid', userid)
-      .limit(1);
-
     if (!Number(pin) || pin.length !== 4 || !pin) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
 
-    if (PBKDF2(pin) == pinpass[0].pin) {
+    if (PBKDF2(pin) == user.pin) {
       fetch('/api/decrypt', {
         method: 'POST',
         body: JSON.stringify(data),
@@ -105,13 +99,9 @@ export default function Home() {
   }
 
   async function setNewPass() {
-    const { data: pinpass } = await supabaseClient
-      .from('Users')
-      .select('*')
-      .eq('userid', userid)
-      .limit(1);
+   
 
-    if (!pinpass || !pinpass[0]?.pin) {
+    if (!user || !user?.pin) {
       const pin = prompt('Set new PIN');
 
       if (!Number(pin) || pin.length !== 4 || !pin) {
@@ -141,18 +131,12 @@ export default function Home() {
   async function changePin() {
     const old = prompt('Old PIN');
 
-    const { data: pinpass } = await supabaseClient
-      .from('Users')
-      .select('*')
-      .eq('userid', userid)
-      .limit(1)
-      .single();
 
     if (!Number(old) || old.length !== 4 || !old) {
       alert('Please follow 4 number pin. Which should be numerical pin!');
     }
 
-    if (PBKDF2(old) == pinpass.pin) {
+    if (PBKDF2(old) == user.pin) {
       const newpin = prompt('New PIN');
 
       if (!Number(newpin) || newpin.length !== 4 || !newpin) {
