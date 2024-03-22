@@ -340,4 +340,6 @@ export const getServerSideProps = async (ctx) => {
         permanent: false,
       },
     };
+
+  return {}
 }
