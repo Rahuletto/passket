@@ -307,19 +307,19 @@ export default function Home() {
     );
 }
 
-export const getServerSideProps = async (ctx) => {
-  const supabase = createPagesServerClient(ctx);
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
+// export const getServerSideProps = async (ctx) => {
+//   const supabase = createPagesServerClient(ctx);
+//   const {
+//     data: { session },
+//   } = await supabase.auth.getSession();
 
-  if (!session)
-    return {
-      redirect: {
-        destination: '/auth/signin',
-        permanent: false,
-      },
-    };
+//   if (!session)
+//     return {
+//       redirect: {
+//         destination: '/auth/signin',
+//         permanent: false,
+//       },
+//     };
 
-  return {};
-};
+//   return {};
+// };
