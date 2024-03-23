@@ -189,7 +189,7 @@ export default function Home({ id, user, pass }) {
                     <p
                       onClick={(e) => visible(e.target, pass.password)}
                       className={styles.blur}>
-                      {pass.password}
+                      {pass.password.split("").reverse().join("")}
                     </p>
                   </div>
                 );
