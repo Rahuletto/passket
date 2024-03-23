@@ -4,12 +4,23 @@ import styles from '../../styles/Signin.module.css';
 import { FaGoogle } from 'react-icons/fa';
 
 // Auth
-import { useSupabaseClient } from '@supabase/auth-helpers-react';
+import {
+  useSessionContext,
+  useSupabaseClient,
+} from '@supabase/auth-helpers-react';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 
 export default function SignIn() {
+  const router = useRouter();
   const supabaseClient = useSupabaseClient();
+  const { isLoading, session, error } = useSessionContext();
 
+  useEffect(() => {
+    if (session) router.push('/');
+  }, [isLoading]);
+  
   return (
     <main className={styles.main}>
       <div key="google" className={styles.container}>
@@ -48,9 +59,7 @@ export default function SignIn() {
           </div>
           <p className={styles.credits}>
             Made by <a href="https://marban.is-a.dev">Marban</a> and{' '}
-            <a href="https://www.linkedin.com/in/harshan-am">
-              Harshan
-            </a>
+            <a href="https://www.linkedin.com/in/harshan-am">Harshan</a>
           </p>
         </div>
       </div>
@@ -62,10 +71,10 @@ export const getServerSideProps = async (ctx) => {
   const supabase = createPagesServerClient(ctx);
   // Check if we have a session
   const {
-    data: { session },
-  } = await supabase.auth.getSession();
+    data: { user },
+  } = await supabase.auth.getUser();
 
-  if (session)
+  if (user)
     return {
       redirect: {
         destination: '/',
