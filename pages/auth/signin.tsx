@@ -4,23 +4,19 @@ import styles from '../../styles/Signin.module.css';
 import { FaGoogle } from 'react-icons/fa';
 
 // Auth
-import {
-  useSessionContext,
-  useSupabaseClient,
-} from '@supabase/auth-helpers-react';
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { useSupabaseClient, useUser } from '@supabase/auth-helpers-react';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 
 export default function SignIn() {
-  const router = useRouter();
   const supabaseClient = useSupabaseClient();
-  const { isLoading, session, error } = useSessionContext();
+  const router = useRouter();
+  const user = useUser();
 
   useEffect(() => {
-    if (session) router.push('/');
-  }, [isLoading]);
-  
+    if(user) router.push('/');
+  }, []);
+
   return (
     <main className={styles.main}>
       <div key="google" className={styles.container}>
@@ -44,12 +40,9 @@ export default function SignIn() {
                 onClick={() =>
                   supabaseClient.auth.signInWithOAuth({
                     provider: 'google',
+
                     options: {
-                      redirectTo: `${location.origin}/`,
-                      queryParams: {
-                        access_type: 'offline',
-                        prompt: 'consent',
-                      },
+                      redirectTo: `${location.origin}/auth/callback`,
                     },
                   })
                 }>
@@ -66,23 +59,3 @@ export default function SignIn() {
     </main>
   );
 }
-
-export const getServerSideProps = async (ctx) => {
-  const supabase = createPagesServerClient(ctx);
-  // Check if we have a session
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
-
-  if (user)
-    return {
-      redirect: {
-        destination: '/',
-        permanent: false,
-      },
-    };
-  else
-    return {
-      props: {},
-    };
-};

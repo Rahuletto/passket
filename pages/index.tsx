@@ -3,56 +3,36 @@ import { useEffect, useState } from 'react';
 import styles from '../styles/Pass.module.css';
 
 import Drop from '../components/Drop';
-import { Password } from '../utils/types';
 import NewPass from '../components/NewPass';
 
 // Auth
 
 // Auth and Database
-import { useSession, useSessionContext } from '@supabase/auth-helpers-react';
+import { useSession, useUser } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { PBKDF2 } from '../utils/pbkdf2';
 import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
+import { GetServerSidePropsContext } from 'next';
 
 export const color = ['white', 'blue', 'green', 'yellow', 'violet', 'red'];
 
-export default function Home() {
+export default function Home({ id, user, pass }) {
   const router = useRouter();
-  const { isLoading, session, error } = useSessionContext();
+
+  const ses = useUser();
+
+  useEffect(() => {
+    if (!ses && !id) router.push('/auth/signin');
+  }, []);
 
   const supabaseClient = useSupabaseClient();
-
-  const [passes, setPasses] = useState<Password[]>([]);
+  const session = useSession();
 
   const [addToggle, setAddToggle] = useState(false);
   const [accToggle, setAcc] = useState(false);
 
-  const [userid, setUserid] = useState(null);
-  const [user, setUser] = useState(null);
-
-  useEffect(() => {
-    setUserid(session ? session?.user?.id : null);
-
-    (async () => {
-      if (session?.user?.id) {
-        const { data } = await supabaseClient
-          .from('Users')
-          .select('*')
-          .eq('userid', session?.user?.id)
-          .limit(1)
-          .single();
-
-        if (data) setUser(data);
-      } else if (!isLoading && !session) return router.push('/home');
-    })();
-
-    fetch(`/api/fetch/${session?.user?.id}`)
-      .then((a) => a.json())
-      .then((res) => {
-        setPasses(res?.keys);
-      });
-  }, [isLoading]);
+  const [passes, setPass] = useState(pass);
 
   async function visible(element, pass) {
     if (element.style.filter == 'none') return;
@@ -90,10 +70,10 @@ export default function Home() {
   function afterSub(str: string) {
     if (str && str == 'hide') setAddToggle(false);
     setTimeout(() => {
-      fetch(`/api/fetch/${userid}`)
+      fetch(`/api/fetch/${id}`)
         .then((a) => a.json())
         .then((res) => {
-          setPasses(res.keys);
+          setPass(res.keys);
           setAddToggle(false);
         });
     }, 100);
@@ -111,16 +91,8 @@ export default function Home() {
 
       supabaseClient
         .from('Users')
-        .insert({ userid: userid, pin: PBKDF2(pin) })
+        .insert({ userid: id, pin: PBKDF2(pin) })
         .then(async (a) => {
-          const { data: userData } = await supabaseClient
-            .from('Users')
-            .select('*')
-            .eq('userid', userid)
-            .limit(1);
-
-          setUser(userData);
-
           alert('This is your new PIN.');
           return router.reload();
         });
@@ -144,8 +116,8 @@ export default function Home() {
       } else {
         supabaseClient
           .from('Users')
-          .update({ userid: userid, pin: PBKDF2(newpin) })
-          .eq('userid', userid)
+          .update({ userid: id, pin: PBKDF2(newpin) })
+          .eq('userid', id)
           .then(() => {
             alert('Changed your PIN.');
           });
@@ -209,7 +181,7 @@ export default function Home() {
                     id={color[pass.color]}
                     className={styles.passbox}>
                     <h2 style={{ userSelect: 'none' }}>{pass.provider}</h2>{' '}
-                    <Drop update={afterSub} userid={userid} pass={pass} />
+                    <Drop update={afterSub} userid={id} pass={pass} />
                     <h3>{pass.account}</h3>
                     <p
                       onClick={(e) => visible(e.target, pass.password)}
@@ -288,7 +260,7 @@ export default function Home() {
           </div>
         ) : null}
 
-        {addToggle && <NewPass vis={afterSub} userid={userid} />}
+        {addToggle && <NewPass vis={afterSub} userid={id} />}
       </main>
     );
   else
@@ -307,19 +279,24 @@ export default function Home() {
     );
 }
 
-export const getServerSideProps = async (ctx) => {
-  const supabase = createPagesServerClient(ctx);
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const supabase = createPagesServerClient(context);
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
 
-  if (!user)
-    return {
-      redirect: {
-        destination: '/auth/signin',
-        permanent: false,
-      },
-    };
+  const id = user?.id;
 
-  return {};
-};
+  const { data } = await supabase
+    .from('Users')
+    .select('*')
+    .eq('userid', id)
+    .limit(1)
+    .single();
+
+  const passes = await fetch(`https://passket.vercel.app/api/fetch/${id}`);
+  const res = await passes.json();
+
+  return { props: { id: id || null, user: data, passes: res?.keys || null } };
+}

@@ -30,21 +30,21 @@ const nextConfig = {
         source: '/api/:path*',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/api/:path*'
+            ? 'https://friendly-space-fishstick-9wr9rvvgrx6f95j9-3000.app.github.dev/api/:path*'
             : '/api/',
       },
       {
         source: '/docs',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/docs'
+            ? 'https://friendly-space-fishstick-9wr9rvvgrx6f95j9-3000.app.github.dev/docs'
             : '/api/docs',
       },
       {
         source: '/openapi.json',
         destination:
           process.env.NODE_ENV === 'development'
-            ? 'http://127.0.0.1:8000/openapi.json'
+            ? 'https://friendly-space-fishstick-9wr9rvvgrx6f95j9-3000.app.github.dev/openapi.json'
             : '/api/openapi.json',
       },
     ];
