@@ -8,8 +8,15 @@ export default function Callback() {
   const user = useUser();
 
   useInsertionEffect(() => {
-    if (!user) router.push('/auth/signin');
-    else router.push('/');
+    if (user) router.push('/');
+
+    const timeout = setTimeout(() => {
+      if (!user) router.push('/auth/signin');
+    }, 4000);
+
+    return () => {
+      clearTimeout(timeout);
+    };
   }, []);
   return (
     <main
