@@ -9,11 +9,11 @@ import NewPass from '../components/NewPass';
 // Auth
 
 // Auth and Database
-import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 import { useSession, useSessionContext } from '@supabase/auth-helpers-react';
 import { useRouter } from 'next/router';
 import { useSupabaseClient } from '@supabase/auth-helpers-react';
 import { PBKDF2 } from '../utils/pbkdf2';
+import { createPagesServerClient } from '@supabase/auth-helpers-nextjs';
 
 export const color = ['white', 'blue', 'green', 'yellow', 'violet', 'red'];
 
@@ -52,7 +52,7 @@ export default function Home() {
       .then((res) => {
         setPasses(res?.keys);
       });
-  }, [session]);
+  }, [isLoading]);
 
   async function visible(element, pass) {
     if (element.style.filter == 'none') return;
@@ -307,19 +307,19 @@ export default function Home() {
     );
 }
 
-// export const getServerSideProps = async (ctx) => {
-//   const supabase = createPagesServerClient(ctx);
-//   const {
-//     data: { session },
-//   } = await supabase.auth.getSession();
+export const getServerSideProps = async (ctx) => {
+  const supabase = createPagesServerClient(ctx);
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
-//   if (!session)
-//     return {
-//       redirect: {
-//         destination: '/auth/signin',
-//         permanent: false,
-//       },
-//     };
+  if (!user)
+    return {
+      redirect: {
+        destination: '/auth/signin',
+        permanent: false,
+      },
+    };
 
-//   return {};
-// };
+  return {};
+};
