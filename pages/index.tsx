@@ -24,6 +24,9 @@ export default function Home({ id, user, pass }) {
 
   useEffect(() => {
     if (!ses && !id) router.push('/auth/signin');
+    if(ses) {
+      id = ses.id
+    }
   }, []);
 
   const supabaseClient = useSupabaseClient();
@@ -298,5 +301,5 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const passes = await fetch(`https://passket.vercel.app/api/fetch/${id}`);
   const res = await passes.json();
 
-  return { props: { id: id || null, user: data, passes: res?.keys || null } };
+  return { props: { id: id || null, user: data, pass: res?.keys || null } };
 }
